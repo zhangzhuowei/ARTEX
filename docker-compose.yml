@@ -15,7 +15,11 @@ services:
     restart: unless-stopped
 
   artex:
-    image: autumn27/artex:${ARTEX_TAG:-latest}
+    # 上游 autumn27/artex 已随源仓归档失效；改为从当前仓库源码构建。
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    image: artex:${ARTEX_TAG:-local}
     depends_on:
       postgres:
         condition: service_healthy
